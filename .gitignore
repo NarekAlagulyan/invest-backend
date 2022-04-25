@@ -1,0 +1,24 @@
+__pycache__/
+
+# PyCharm project files
+.idea/
+venv/
+
+# File-based project format
+*.iws
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Local media fiels
+/media/
+/static/
+
+celerybeat-schedule
+
+# Mac specific directories
+.DS_Store
+
