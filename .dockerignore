@@ -1,0 +1,10 @@
+*.Dockerfile
+docker-compose.yml
+.dockerignore
+/env
+Makefile
+README.md
+/.gitignore
+/.git
+/.idea
+/venv
