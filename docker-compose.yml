@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+    postgres:
+        build:
+            context: ./
+            dockerfile: postgres.Dockerfile
+        image: invest-postgres
+        container_name: postgres-invest
+
+        env_file:
+            - ./env/postgres.dev.env
+        restart: always
+        volumes:
+            - postgres_data:/var/lib/postgresql/postgres_data
+        ports:
+            - "5457:5432"
+
+    invest:
+        build:
+            context: ./
+            dockerfile: backend.Dockerfile
+        image: invest-backend
+        container_name: backend-invest
+        env_file:
+            ./env/local.env
+        ports:
+            - "8000:8000"
+        volumes:
+            - .:/project/
+        command: /usr/local/bin/gunicorn InvestBackend.wsgi -w 3 -b 0.0.0.0:8000 -t 0 --reload
+        depends_on:
+            - postgres
+
+
+volumes:
+    postgres_data:
