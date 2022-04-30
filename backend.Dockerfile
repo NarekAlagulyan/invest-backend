@@ -8,7 +8,7 @@ RUN python -m pip install --upgrade pip; pip install -r requirements.txt
 ENV PYTHONIOENCODING=utf-8 \
     PYTHONUNBUFFERED=1
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["sh", "./entrypoint.sh"]
 
 COPY . /project/
 
