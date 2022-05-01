@@ -13,11 +13,7 @@ def _collect_serializer_error_codes(validation_errors):
     error_code_list = []
     for field, errors in data.items():
         for error in errors:
-            _error = {
-                'code': field,
-                'value': error['message']
-            }
-            error_code_list.append(_error)
+            error_code_list.append(error['message'])
 
     return error_code_list
 
@@ -29,7 +25,6 @@ def exception_handler(exc, context):
         if isinstance(exc, MethodNotAllowed):
             return SingleErrorResponse(
                 error_code='method_not_allowed',
-                error_value='Method not allowed',
                 status=status.HTTP_405_METHOD_NOT_ALLOWED
             )
 
