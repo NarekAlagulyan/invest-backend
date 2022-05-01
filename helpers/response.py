@@ -8,15 +8,17 @@ from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
     "data": {} | [{}, {}], 
     
     "error": [
+         # Ex. invalid email pattern
+        "code": "4400", 
+        "code": "3000",
+    ], | 
+    "error": [
         {
-            "code": "4400", # The code which describes some kind of error. For example (X does not exist)
-            "value": "1" # The actual value which was needed to find X
-        },
-        {
-            "code": "3000",
-            "value": "7"
+             # Ex. X not found with the given value
+            "code": "6270",
+            "value": "1"
         }
-    ],
+    ]
     
     "meta_data": {}
 }
@@ -45,9 +47,13 @@ class Response(DrfResponse):
 
 
 class SingleErrorResponse(Response):
-    def __init__(self, error_code, error_value, status=HTTP_400_BAD_REQUEST):
-        error = {
-            'code': error_code,
-            'value': error_value
-        }
+    def __init__(self, error_code, error_value=None, status=HTTP_400_BAD_REQUEST):
+        error = error_code
+
+        if error_value is not None:
+            error = {
+                'code': error_code,
+                'value': error_value,
+            }
+
         super().__init__(data=None, meta_data=None, error=error, status=status)
